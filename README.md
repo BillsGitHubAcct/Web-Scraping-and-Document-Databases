@@ -1,13 +1,23 @@
 
 
-### Mission to Mars Homework
+### Mission to Mars Web Scraper to New Web Page
 
-## The following code scrapes pieces of Mars related information from various web pages and then inserts it into a Mongodb database. 
-## From the Mongodb database rows are read and displayed on a visualization.  
+##Consists of:
 
- 
+# A Jupyter Notebook script that scrapes Mars data (see below) --> mission_to_mars.ipynb 
 
-### mission_to_mars.ipynb -- Part 1
+#A Python version of the Jupyter Notebook written as a function  --> scrape_mars.py 	
+
+#A Flask Python Mongodb (app.py) script that: 
+	1) calls the above scrape function to retrieve the scraped Mars data
+	2) inserts the scraped data into a mongodb app's mars collection
+	3) reads the scraped data from mongodb
+    4) passes scraped data to index.html (in templates folder)
+	5) and renders the web page
+	 
+#---------------------------------------------------------------------
+
+### mission_to_mars.ipynb 
 
 ```python
 import pandas as pd
@@ -182,10 +192,12 @@ with  Browser('chrome', **executable_path, headless=False) as browser:
 
     [{'title': 'Cerberus Hemisphere Enhanced', 'img_url': 'http://astropedia.astrogeology.usgs.gov/download/Mars/Viking/cerberus_enhanced.tif/full.jpg'}, {'title': 'Schiaparelli Hemisphere Enhanced', 'img_url': 'http://astropedia.astrogeology.usgs.gov/download/Mars/Viking/schiaparelli_enhanced.tif/full.jpg'}, {'title': 'Syrtis Major Hemisphere Enhanced', 'img_url': 'http://astropedia.astrogeology.usgs.gov/download/Mars/Viking/syrtis_major_enhanced.tif/full.jpg'}, {'title': 'Valles Marineris Hemisphere Enhanced', 'img_url': 'http://astropedia.astrogeology.usgs.gov/download/Mars/Viking/valles_marineris_enhanced.tif/full.jpg'}]
     
-	
-	
-### app.py  -- Part 2
-	
+
+```python
+#---------------------------------------------------------------------
+
+### app.py
+
 #
 # Driver for Scraping Mars Web pages, saving scraped data to Mongodb database
 #
@@ -218,12 +230,7 @@ def scrape():
 	"""
 	mars = mongo.db.mars
 	data = mars_scrape()
-	# print(data['news_title'])
-	# print(data['news_p'])
-	# print(data['images_url'])
-	# print(data['mars_weather'])
-	# print(data['mars_html_table'])
-	# print(data['mars_images'])
+
 	mars.update(
         {},
         data,
@@ -239,7 +246,16 @@ if __name__ == "__main__":
 
 
 
+```	
+	
+
+
+```python
+
+#---------------------------------------------------------------------
+
 ### scrape_mars.py
+
 
 def mars_scrape():
 	"""
@@ -253,7 +269,7 @@ def mars_scrape():
 	from splinter import Browser
 	executable_path = {'executable_path': 'chromedriver.exe'}
 	return_list = []
-	### NASA Mars News
+	# ### NASA Mars News
 	with  Browser('chrome', **executable_path, headless=True) as browser:
 		url = 'https://mars.nasa.gov/news/'
 		# open web page
@@ -272,7 +288,7 @@ def mars_scrape():
 	print('News title --> ' + news_title)
 	print('News paragraph --> \n' + news_p)
 
-	### JPL Mars Space Images - Featured Image
+	# ### JPL Mars Space Images - Featured Image
 	with  Browser('chrome', **executable_path, headless=True) as browser:
 		jpl_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
 		# open web page
@@ -288,7 +304,7 @@ def mars_scrape():
 	print('image url --> ' + image_url)
 	
 
-	### Mars Weather
+	# ### Mars Weather
 
 	twitter_url = 'https://twitter.com/marswxreport?lang=en'
 	response = requests.get(twitter_url)
@@ -370,8 +386,11 @@ def mars_scrape():
 			"title4": title_text4,
 			"img_url4": image_url4		
 			} 
+```
+#---------------------------------------------------------------------
 
-### index.html (HTML Web Page)
+### index.html
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -460,8 +479,9 @@ def mars_scrape():
 </body>
 </html>
 
-### CSS Values
+#---------------------------------------------------------------------
 
+### style.css
 
   body {	
 	font-family: 'Source Sans Pro', sans-serif;
