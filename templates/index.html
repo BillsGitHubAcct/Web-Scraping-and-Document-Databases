@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mars</title>
+  <!-- <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='reset.css')}}"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css')}}">
+  
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+    </div>
+      
+    <!-- mars data -->
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Latest Mars News</h2>
+		<h3>{{ mars.news_title }}</h3>
+		<p>{{mars.news_p}}</p>
+      </div>
+    </div>
+		
+	<div class="row">
+      <div class="col-md-6">
+        <h2>Featured Mars Image</h2>
+		<img class ="img-responsive" src= "{{ mars.images_url}}"/>
+      </div>
+	  <div class=" col-md-6 container ">
+		<div class="panel panel-default">
+			<div class="panel-body"><h3>Current Weather on Mars</h3>
+									<p>{{mars.mars_weather}}</p>
+			</div>
+		</div>
+	  </div>
+      <div class="col-md-6">
+        <h3>Mars Facts</h3>
+		{{mars.mars_html_table|safe}}
+      </div>
+	  <div class=" col-md-12 container ">
+		<div class="panel panel-default">
+	  	<h2 align="center">Mars Hemispheres </h2>
+		<div class=" col-md-6 container">
+		    <div class="panel panel-default">
+			<img class ="img-responsive" src= "{{ mars.img_url1}}"/>
+			<h4>{{ mars.title1}}</h4>
+		   </div>
+		</div>
+		<div class="col-md-6 container">
+		    <div class="panel panel-default">
+			<img class ="img-responsive" src= "{{ mars.img_url2}}" />
+			<h4>{{ mars.title2}}</h4>
+		</div>
+        </div>
+	   </div>
+	  
+
+	  <div class="col-md-6 container">
+	    <div class="panel panel-default">
+        <img class ="img-responsive" src= "{{ mars.img_url3}}" />
+		<h4>{{ mars.title3}}</h4>
+		</div>
+      </div>
+	  <div class="col-md-6 container">
+	    <div class="panel panel-default">
+        <img class ="img-responsive" src= "{{ mars.img_url4}}"/>
+		<h4>{{ mars.title4}}</h4>
+		</v>
+      </div>
+     </div>
+    </div>
+
+	
+	
+  </div>
+
+</body>
+</html>
+

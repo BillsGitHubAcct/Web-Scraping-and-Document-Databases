@@ -1,0 +1,22 @@
+
+  body {	
+	font-family: 'Source Sans Pro', sans-serif;
+	background-color: #f4f1f1;
+  }
+  .jumbotron {
+	background-color: #e0e0eb;	 
+  }
+  .table {
+     background-color: #f4f1f1;
+  }
+  .panel-body {
+	background-color: #f4f1f1; 
+
+  }	
+  .panel {
+	background-color: #f4f1f1;
+
+  }
+  p {
+	 font-size: 12pt;
+  }
